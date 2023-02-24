@@ -2,8 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.text.*;
+import java.sql.*;
 
-public class LoginPage extends JFrame
+public class LoginPage extends JFrame implements ActionListener
 {
 	Container c = getContentPane();
 	JPanel PFlightTypes = new JPanel(null);
@@ -144,62 +145,53 @@ public class LoginPage extends JFrame
 		LBusiness1.addMouseListener(new mouse2(this, true));
 		LEconomic1.addMouseListener(new mouse2(this, false));
 
-		BLogin.addActionListener(new button1(this));
+		BLogin.addActionListener((ActionListener) this);
 	}
+    public void actionPerformed(ActionEvent e) 
+            {
+                String userName = TFUserName.getText();
+                String password = TPPassword.getText();
+                try {
+                    Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/airlinedb","root", "system");
+                    PreparedStatement st = (PreparedStatement) connection.prepareStatement("Select username, password from airlinedb.users where username=? and password=?");
 
+                    st.setString(1, userName);
+                    st.setString(2, password);
+                    ResultSet rs = st.executeQuery();
+                    if (rs.next()) {
+                        
+                        PLogin.add(LDomesticFlight1);
+						PLogin.add(LInternationalFlight1);
+
+						PLogin.remove(LUserName);
+						PLogin.remove(TFUserName);
+						PLogin.remove(LPassword);
+						PLogin.remove(TPPassword);
+						PLogin.remove(BLogin);
+
+						c.repaint();
+                        JOptionPane.showMessageDialog(BLogin, "You have successfully logged in");
+                    } else {
+                        JOptionPane.showMessageDialog(BLogin, "Wrong Username & Password");
+                    }
+                } catch (SQLException sqlException) {
+                    sqlException.printStackTrace();
+                }
+            }
 	public static void main(String args[])
 	{
-		new LoginPage();
+		EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    LoginPage frame = new LoginPage();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 	}
 }
-
-
-class button1 implements ActionListener
-{
-	LoginPage type;
-	char[] cCheck, cPassword={'a','d','m','i','n','\0'};
-	JFrame f;
-	String sCheck,sCheck1="admin";
-
-	public button1(LoginPage type)
-	{
-		this.type = type;
-	}
-	public void actionPerformed(ActionEvent e)
-	{
-		cCheck=type.TPPassword.getPassword();
-		sCheck = type.TFUserName.getText();
-		if ((sCheck1.equals(sCheck)) && check())
-		{
-			type.PLogin.add(type.LDomesticFlight1);
-			type.PLogin.add(type.LInternationalFlight1);
-
-			type.PLogin.remove(type.LUserName);
-			type.PLogin.remove(type.TFUserName);
-			type.PLogin.remove(type.LPassword);
-			type.PLogin.remove(type.TPPassword);
-			type.PLogin.remove(type.BLogin);
-
-			type.c.repaint();
-		}
-		else
-		{
-			JOptionPane.showMessageDialog(null, "Invalid username or password. Try again");
-		}
-	}
-	public boolean check()
-	{
-		if (cCheck.length >= 6 || cCheck.length < 4)
-			return false;
-		for(int i=0;i<=4;i++)
-		{
-			if(cCheck[i]!=cPassword[i])
-				return false;
-		}
-		return true;
-	}
-}
-
 class mouse1 extends MouseAdapter
 {
 	LoginPage type;
