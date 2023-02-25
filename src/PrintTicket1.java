@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class PrintTicket1 extends JFrame
 {
@@ -19,14 +18,14 @@ public class PrintTicket1 extends JFrame
 		JLabel LPrice = new JLabel("<html><font color=\"#000000\">Total Price &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:&nbsp;</font><font color=\"#778899\">"+ iPrice+"</font></html>" );
 		JLabel LTime = new JLabel("<html><font color=\"#000000\">DepatureTime  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:&nbsp;</font><font color=\"#778899\">"+ sTime+"</font></html>" );
 		JLabel LAdult = new JLabel("<html><font color=\"#000000\">Adult &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;: &nbsp;</font><font color=\"#778899\">"+iAdult+"</font></html>" );
-		JLabel LChildren = new JLabel("<html><font color=\"#000000\">Children &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : &nbsp;</font><font color=\"#778899\">"+ iChildren+"</font></html>" );
+		JLabel LChildren = new JLabel("<html><font color=\"#000000\">Children &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : &nbsp; : &nbsp;</font><font color=\"#778899\">"+ iChildren+"</font></html>" );
 		JLabel LInfant = new JLabel("<html><font color=\"#000000\">Infant &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: &nbsp;</font><font color=\"#778899\">"+iInfant+"</font></html>" );
 		JLabel LWishes = new JLabel("<html><body><I><font color=\"#D2B48C\">Wish you a happy journy</font></I></body></html>");
 		JLabel LEmpty = new JLabel("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		JLabel LDemo = new JLabel("<html><U><font color=\"#8FBC8F\">AirLine-Project Developed By</font></U></html>");
-		JLabel Amit=new JLabel("<html><I><font color=\"#8FBC8F\">Amit Singh</font></I></html>");
-		JLabel Niraj=new JLabel("<html><I><font color=\"#8FBC8F\">Niraj Sahu</font></I></html>");
-		JLabel khushi=new JLabel("<html><I><font color=\"#8FBC8F\">Khushi</font></I></html>");
+		JLabel LDemo = new JLabel("<html><h2><U><font color=\"#8FBC8F\">AirLine-Project Developed By</font></U></h2></html>");
+		JLabel Amit=new JLabel("<html><h3><I><font color=\"#8FBC8F\">Amit Singh</font></I></h3></html>");
+		JLabel Niraj=new JLabel("<html><h3><I><font color=\"#8FBC8F\">Niraj Sahu</font></I></h3></html>");
+		JLabel khushi=new JLabel("<html><h3><I><font color=\"#8FBC8F\">Khushi</font></I></h3></html>");
 
 		LTitle.setBounds(170,15,500,45);
 		LFrom.setBounds(20,80,300,20);

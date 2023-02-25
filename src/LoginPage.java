@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.text.*;
 import java.sql.*;
 
 public class LoginPage extends JFrame implements ActionListener
@@ -26,9 +25,9 @@ public class LoginPage extends JFrame implements ActionListener
 
 	JButton BLogin;
 
+	
+
 	final Object[] col1 ={ "From", "To", "Price", "Time" };
-	final Object[] col2 = { "From", "To", "Price", "Time" };
-	final Object[] col3 = { "From", "To", "Price", "Time" };
 
 	final Object[][] row1 = { { "Mumbai", "Bangalore", "3125", "16:30" }, { "Trivandrum", "Chennai ", "3225", "19:00" }, { "Gujarat", "Delhi", "1425 ", "08:30" }, { "Delhi", "Goa", "1025 ", "09:50" }, { "Jaipur", "Hyderabad", "1525", "11:00" }, { "Trivandrum", "Kolkata", "3825 ", "05:30" }, { "Trivandrum", "Lucknow", "3025 ", "05:30" }, { "Trivandrum", "Mumbai", "1725", "12:00" }, { "Manali", "Vishakapatnam", "3725", "19:00" } };
 	final Object[][] row2 = { { "Mumbai", "Bali", "21485", "06:20" }, { "Delhi", "Bangkok", "9000", "20:45" }, { "Trivandrum", "Cairo", "22975", "10:25" }, { "Gujarat", "CapeTown", "42500", "16:45" }, { "Trivandrum", "Chicago", "35000", "06:30" }, { "Keral", "Dubai", "12000", "08:15" }, { "Kolkata", "Frankfurt", "18500", "06:50" }, { "Trivandrum", "HongKong", "20845", "12:00" }, { "Goa", "Istanbul", "22000", "10:45" }, { "Trivandrum", "London", "22600", "14:35" }, { "Trivandrum", "LosAngeles", "35000", "22:00" }, { "Trivandrum", "Melbourne", "27800", "21:15" }, { "Trivandrum", "New York", "32000", "08:50" }, { "Trivandrum", "Paris", "18500", "18:45" }, { "Trivandrum", "Rome", "19900", "20:00"}, { "Trivandrum", "SanFrancisco", "35000", "12:00"}, { "Trivandrum", "shanghai", "24430", "10:15" }, { "Trivandrum", "Singapore", "9000", "21:10" }, { "Trivandrum", "Sydney", "27800", "12:00"}, { "Trivandrum", "Toronto", "35000", "17:00 " } };
@@ -36,9 +35,9 @@ public class LoginPage extends JFrame implements ActionListener
 	final Object[][] row4 = { { "Trivandrum", "Bali", "64455", "06:20" }, { "Trivandrum", "Bangkok", "27000", "20:45" }, { "Trivandrum", "Cairo", "68925", "10:25" }, { "Trivandrum", "CapeTown", "37500", "16:45" }, { "Trivandrum", "Chicago", "105000", "06:30" }, { "Trivandrum", "Dubai", "36000", "08:15" }, { "Trivandrum", "Frankfurt", "55500", "06:50" }, { "Trivandrum", "HongKong", "62535", "12:00" }, { "Trivandrum", "Istanbul", "66000", "10:45" }, { "Trivandrum", "London", "67800", "14:35" }, { "Trivandrum", "LosAngeles", "105000", "22:00" }, { "Trivandrum", "Melbourne", "83400", "21:15" }, { "Trivandrum", "New York", "96000", "08:50" }, { "Trivandrum", "Paris", "55500", "18:45" }, { "Trivandrum", "Rome", "59700", "20:00" }, { "Trivandrum", "SanFrancisco", "105000", "12:00" }, { "Trivandrum", "shanghai", "73290", "10:15" }, { "Trivandrum", "Singapore", "27000", "21:10"}, { "Trivandrum", "Sydney", "83400", "12:00"}, { "Trivandrum", "Toronto", "105000", "17:00" } };
 
 	JTable TDomesticFlight = new JTable(row1, col1);
-	JTable TInternationalFlight = new JTable(row2, col2);
-	JTable TDomesticFlight1 = new JTable(row3, col3);
-	JTable TInternationalFlight1 = new JTable(row4, col2);
+	JTable TInternationalFlight = new JTable(row2, col1);
+	JTable TDomesticFlight1 = new JTable(row3, col1);
+	JTable TInternationalFlight1 = new JTable(row4, col1);
 
 	JScrollPane JSP1 = new JScrollPane(TDomesticFlight, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	JScrollPane JSP2 = new JScrollPane(TInternationalFlight, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -148,10 +147,13 @@ public class LoginPage extends JFrame implements ActionListener
 		BLogin.addActionListener((ActionListener) this);
 	}
     public void actionPerformed(ActionEvent e) 
-            {
+    {
+		if(e.getSource() == BLogin)
+		{
                 String userName = TFUserName.getText();
                 String password = TPPassword.getText();
                 try {
+					
                     Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/airlinedb","root", "system");
                     PreparedStatement st = (PreparedStatement) connection.prepareStatement("Select username, password from airlinedb.users where username=? and password=?");
 
@@ -177,7 +179,72 @@ public class LoginPage extends JFrame implements ActionListener
                 } catch (SQLException sqlException) {
                     sqlException.printStackTrace();
                 }
-            }
+		}
+		else if(e.getSource() == TDomesticFlight)
+		{
+			try
+			{
+				Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/airlinedb","root", "system");
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("Select from, to, e_price, time from airlinedb.d_flights where sr_no = ?");
+				ResultSet rs = st.executeQuery();
+				while(rs.next())
+				{
+					
+				}
+			} catch (Exception ex)
+			{
+				// TODO: handle exception
+			}
+		}
+		else if(e.getSource() == TInternationalFlight)
+		{
+			try
+			{
+				Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/airlinedb","root", "system");
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("Select from, to, e_price, time from airlinedb.i_flights where sr_no = ?");
+				ResultSet rs = st.executeQuery();
+				while(rs.next())
+				{
+					
+				}
+			} catch (Exception ex)
+			{
+				// TODO: handle exception
+			}
+		}
+		else if(e.getSource() == TDomesticFlight1)
+		{
+			try
+			{
+				Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/airlinedb","root", "system");
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("Select from, to, b_price, time from airlinedb.d_flights where sr_no = ?");
+				ResultSet rs = st.executeQuery();
+				while(rs.next())
+				{
+					
+				}
+			} catch (Exception ex)
+			{
+				// TODO: handle exception
+			}
+		}
+		else if(e.getSource() == TInternationalFlight1)
+		{
+			try
+			{
+				Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/airlinedb","root", "system");
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("Select from, to, b_price, time from airlinedb.i_flights where sr_no = ?");
+				ResultSet rs = st.executeQuery();
+				while(rs.next())
+				{
+					
+				}
+			} catch (Exception ex)
+			{
+				// TODO: handle exception
+			}
+		}
+    }
 	public static void main(String args[])
 	{
 		EventQueue.invokeLater(new Runnable() {
