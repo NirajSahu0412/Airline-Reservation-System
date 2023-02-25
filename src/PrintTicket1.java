@@ -25,7 +25,7 @@ public class PrintTicket1 extends JFrame
 		JLabel LDemo = new JLabel("<html><h2><U><font color=\"#8FBC8F\">AirLine-Project Developed By</font></U></h2></html>");
 		JLabel Amit=new JLabel("<html><h3><I><font color=\"#8FBC8F\">Amit Singh</font></I></h3></html>");
 		JLabel Niraj=new JLabel("<html><h3><I><font color=\"#8FBC8F\">Niraj Sahu</font></I></h3></html>");
-		JLabel khushi=new JLabel("<html><h3><I><font color=\"#8FBC8F\">Khushi</font></I></h3></html>");
+		JLabel khushi=new JLabel("<html><h3><I><font color=\"#8FBC8F\">Khushi Makwana</font></I></h3></html>");
 
 		LTitle.setBounds(170,15,500,45);
 		LFrom.setBounds(20,80,300,20);
